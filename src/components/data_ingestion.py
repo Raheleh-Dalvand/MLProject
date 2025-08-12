@@ -5,6 +5,7 @@ from src.logger import logging
 from sklearn.model_selection import train_test_split
 import pandas as pd
 from dataclasses import dataclass
+from src.components.data_transformation import DataTransformation
 
 
 @dataclass
@@ -20,7 +21,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info("Entered the data ingestion method or component")
         try:
-            df = pd.read_csv('C:\\MLProject\\notebook\\StudentsPerformance.csv')
+            df = pd.read_csv('/workspace/notebook/StudentsPerformance.csv')
 
             logging.info('Read the dataset as dataframe')
 
@@ -47,5 +48,7 @@ class DataIngestion:
 
 
 if __name__=="__main__":
-    obj=DataIngestion()
-    test_set,train_set=obj.initiate_data_ingestion()
+    ingestion = DataIngestion()
+    train_path, test_path = ingestion.initiate_data_ingestion()
+    transformer = DataTransformation()
+    transformer.initiate_data_transformation(train_path, test_path)
